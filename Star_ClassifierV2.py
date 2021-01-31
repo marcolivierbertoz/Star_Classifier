@@ -2,6 +2,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
+import plotly.express as px
 
 pd.set_option('display.max_columns', None) # Viewing all the columns
 
@@ -62,6 +63,9 @@ st.write("""
 > Data Source: https://www.kaggle.com/deepu1109/star-dataset  
 """)
 
+
+
+
 # Creating function to change name
 def change_name(df):
     for i in range(len(df)):
@@ -91,6 +95,13 @@ def load_data():
     
 df=load_data()
 
+# Plotting the data of df on 3d graph ######################################################################################################
+st.subheader('3D Plot of the stars present inside the dataset')
+fig = px.scatter_3d(df, x='Temperature_(K)',y='Luminosity(L/Lo)',z='Absolute_magnitude(Mv)', color='Star_type')
+st.plotly_chart(fig)
+
+
+############################################################################################################################################
 
 
 # Creating Sidebar ######################################################################
@@ -175,7 +186,6 @@ def predict_star():
     prediction = lsvc.predict(Data_predict)
     st.subheader('Prediction')
     st.write(prediction)
-
 
 if btn:
     predict_star()
